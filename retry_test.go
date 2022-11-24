@@ -143,7 +143,7 @@ func TestStrategy(t *testing.T) {
 				left  = base*time.Duration(1<<int64(n)) - jitter
 				right = base*time.Duration(1<<int64(n)) + jitter
 			)
-			if got <= left || got > right {
+			if got < left || got > right {
 				t.Errorf("ExponentialJitterRetryStrategy got %v, want between %v and %v", got, left, right)
 			}
 		}
