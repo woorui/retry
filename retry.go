@@ -75,6 +75,7 @@ func Call(ctx context.Context, fn Function, maxRetries int, strategy RetryStrate
 		}
 	END:
 		errch <- gerr
+		tick.Stop()
 	}()
 
 	err, ok := <-errch
