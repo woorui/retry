@@ -166,13 +166,11 @@ func jitter(base, maxJitter time.Duration) time.Duration {
 		max = baseInt64 + jitterInt64
 	)
 
-	// fmt.Println(time.Duration(max)*time.Millisecond, time.Duration(min)*time.Millisecond, time.Duration(rand.Int63n(max-min+1))*time.Millisecond)
+	randSource := rand.NewSource(time.Now().UnixNano())
 
-	d := time.Duration(rand.Int63n(max-min+1)+min) * time.Millisecond
+	d := time.Duration(rand.New(randSource).Int63n(max-min+1)+min) * time.Millisecond
 	if d == 0 {
 		return base
 	}
 	return d - base
 }
-
-func init() { rand.Seed(time.Now().UnixMicro()) }
